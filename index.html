@@ -56,13 +56,6 @@
                     this.newPlacename()
                 },
                 methods: {
-                    formToName(form, name) {
-                        if (form.indexOf("-") !== 0) {
-                            return form.substr(0, form.length - 1) + name;
-                        }
-
-                        return titleCase(name) + form.substr(1);
-                    },
                     newPlacename() {
                         this.formsIdx = Math.floor(Math.random() * forms.length)
                         this.namesIdx = Math.floor(Math.random() * names.length)
@@ -76,14 +69,14 @@
                         let form = forms[this.formsIdx];
                         let name = names[this.namesIdx];
 
-                        return this.formToName(form, name)
+                        return formToName(form, name)
                     },
                     allPlaces() {
                         let places = [];
 
                         for(form in forms) {
                             for (name in names) {
-                                places.push(this.formToName(forms[form], names[name]));
+                                places.push(formToName(forms[form], names[name]));
                             }
                         }
 
@@ -94,7 +87,13 @@
 
             Vue.createApp(app).mount('#app')
 
+            function formToName(form, name) {
+                if (form.indexOf("-") !== 0) {
+                    return form.substr(0, form.length - 1) + name;
+                }
 
+                return titleCase(name) + form.substr(1);
+            }
             function titleCase(input) {
                 return input.charAt(0).toUpperCase() + input.substr(1)
             }
