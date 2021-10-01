@@ -24,7 +24,7 @@
             </div>
             <div class="text-center">
                 <button @click="showAll()" v-if="!showAllPlaces" class="btn btn-large btn-outline-dark">See the full list</button>
-                <ul id="full" v-if="showAllPlaces">
+                <ul id="full" v-if="showAllPlaces" class="list-unstyled">
                     <li v-for="place in allPlaces.sort()">{{ place }}</li>
                 </ul>
             </div>
