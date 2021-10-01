@@ -23,7 +23,9 @@
                 </button>
             </div>
             <div class="text-center">
-                <button @click="showAll()" v-if="!showAllPlaces" class="btn btn-large btn-outline-dark">See the full list</button>
+                <button @click="toggleShowAll()" class="btn btn-large btn-outline-dark mb-2">
+                    {{ showAllPlaces ? "Hide" : "Show" }} the full list
+                </button>
                 <ul id="full" v-if="showAllPlaces" class="list-unstyled">
                     <li v-for="place in allPlaces">{{ place }}</li>
                 </ul>
@@ -60,8 +62,8 @@
                         this.formsIdx = Math.floor(Math.random() * forms.length)
                         this.namesIdx = Math.floor(Math.random() * names.length)
                     },
-                    showAll() {
-                        this.showAllPlaces = true;
+                    toggleShowAll() {
+                        this.showAllPlaces = !this.showAllPlaces;
                     }
                 },
                 computed: {
