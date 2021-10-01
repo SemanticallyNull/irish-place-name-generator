@@ -1,86 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Irish Place Name Generator</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"></head>
-<body>
-    <div class="container">
-        <div class="px-4 py-5 my-5 text-center">
-            <h1 class="display-5 fw-bold mb-5">Irish place name generator</h1>
-            <h5 id="words" class="display-6 fw-bold">Two Words</h1>
-            <div class="col-lg-6 mt-5 mx-auto">
-                <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-                    <button type="button" id="regen" class="btn btn-primary btn-lg px-4 gap-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
-                            <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
-                        </svg>
-                    </button>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Irish Place Name Generator</title>
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+              integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="px-4 py-5 my-5 text-center">
+                <h1 class="display-5 fw-bold mb-5">Irish place name generator</h1>
+                <h5 id="words" class="display-6 fw-bold">Two Words</h1>
+                <div class="col-lg-6 mt-5 mx-auto">
+                    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                        <button type="button" id="regen" class="btn btn-primary btn-lg px-4 gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
+                                <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
+                            </svg>
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="px-4 py-5 my-5 text-center">
-            <div class="col-lg-6 mt-5 mx-auto">
-                <button id="seeFull"    class="btn btn-large btn-outline-dark">See the full list</button>
-                <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-                    <ul id="full" class="d-none">
-                    </ul>
+            <div class="px-4 py-5 my-5 text-center">
+                <div class="col-lg-6 mt-5 mx-auto">
+                    <button id="seeFull"    class="btn btn-large btn-outline-dark">See the full list</button>
+                    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                        <ul id="full" class="d-none">
+                        </ul>
+                    </div>
                 </div>
             </div>
+
         </div>
 
-    </div>
+        <script type="text/javascript">
+            const forms = ["Avon-", "Ard-", "Bal-", "Bally-", "Balla-", "Dal-", "Drum-", "-drum", "Dun-", "Glen-",
+                "-glen", "Kil-", "-keel", "Kin-", "Knock-", "Lough-", "-more", "-rath", "Rath-"];
+            const names = ["asker", "caragh", "castle", "crone", "down", "erne", "freyne", "gillen", "kyle", "new",
+                "nugent", "rae", "rush", "shannon", "sloe", "thomas", "vourney", "sale"];
 
-    <script type="text/javascript">
-        const forms = ["Avon-", "Ard-", "Bal-", "Bally-", "Balla-", "Dal-", "Drum-", "-drum", "Dun-", "Glen-",
-            "-glen", "Kil-", "-keel", "Kin-", "Knock-", "Lough-", "-more", "-rath", "Rath-"];
-        const names = ["asker", "caragh", "castle", "crone", "down", "erne", "freyne", "gillen", "kyle", "new",
-            "nugent", "rae", "rush", "shannon", "sloe", "thomas", "vourney", "sale"];
+            function generatePlaceName() {
+                var form = forms[Math.floor(Math.random() * forms.length)];
+                var name = names[Math.floor(Math.random() * names.length)];
 
-        function generatePlaceName() {
-            var form = forms[Math.floor(Math.random() * forms.length)];
-            var name = names[Math.floor(Math.random() * names.length)];
-
-            return formToName(form, name)
-        }
-
-        function formToName(form, name) {
-            var dashIdx = form.indexOf("-");
-            if (dashIdx !== 0) {
-                return form.substr(0, form.length - 1) + name;
+                return formToName(form, name)
             }
 
-            return titleCase(name) + form.substr(1);
-        }
-
-        function updateWords() {
-            document.getElementById("words").innerHTML = generatePlaceName();
-        }
-
-        function titleCase(input) {
-            return input.charAt(0).toUpperCase() + input.substr(1)
-        }
-
-        window.addEventListener('load', function () {
-            for(form in forms) {
-                for (name in names) {
-                    var item = document.createElement("li")
-                    item.innerHTML = formToName(forms[form], names[name]);
-                    document.getElementById("full").append(item)
+            function formToName(form, name) {
+                var dashIdx = form.indexOf("-");
+                if (dashIdx !== 0) {
+                    return form.substr(0, form.length - 1) + name;
                 }
+
+                return titleCase(name) + form.substr(1);
             }
 
-            updateWords()
+            function updateWords() {
+                document.getElementById("words").innerHTML = generatePlaceName();
+            }
 
-            document.getElementById("regen").addEventListener("click", updateWords)
-            document.getElementById("seeFull").addEventListener("click", function () {
-                document.getElementById('full').classList.remove('d-none');
-                document.getElementById('seeFull').classList.add('d-none');
+            function titleCase(input) {
+                return input.charAt(0).toUpperCase() + input.substr(1)
+            }
+
+            window.addEventListener('load', function () {
+                for(form in forms) {
+                    for (name in names) {
+                        var item = document.createElement("li")
+                        item.innerHTML = formToName(forms[form], names[name]);
+                        document.getElementById("full").append(item)
+                    }
+                }
+
+                updateWords()
+
+                document.getElementById("regen").addEventListener("click", updateWords)
+                document.getElementById("seeFull").addEventListener("click", function () {
+                    document.getElementById('full').classList.remove('d-none');
+                    document.getElementById('seeFull').classList.add('d-none');
+                })
             })
-        })
-    </script>
-</body>
+        </script>
+    </body>
 </html>
