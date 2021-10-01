@@ -25,7 +25,7 @@
             <div class="text-center">
                 <button @click="showAll()" v-if="!showAllPlaces" class="btn btn-large btn-outline-dark">See the full list</button>
                 <ul id="full" v-if="showAllPlaces" class="list-unstyled">
-                    <li v-for="place in allPlaces.sort()">{{ place }}</li>
+                    <li v-for="place in allPlaces">{{ place }}</li>
                 </ul>
             </div>
 
@@ -72,15 +72,7 @@
                         return formToName(form, name)
                     },
                     allPlaces() {
-                        let places = [];
-
-                        for(form in forms) {
-                            for (name in names) {
-                                places.push(formToName(forms[form], names[name]));
-                            }
-                        }
-
-                        return places
+                        return forms.flatMap((f) => { return names.map((n) => { return formToName(f,n) }) }).sort()
                     }
                 }
             }
@@ -88,11 +80,9 @@
             Vue.createApp(app).mount('#app')
 
             function formToName(form, name) {
-                if (form.indexOf("-") !== 0) {
-                    return form.substr(0, form.length - 1) + name;
-                }
-
-                return titleCase(name) + form.substr(1);
+                return form.indexOf("-") !== 0 ?
+                    form.substr(0, form.length - 1) + name :
+                    titleCase(name) + form.substr(1);
             }
             function titleCase(input) {
                 return input.charAt(0).toUpperCase() + input.substr(1)
